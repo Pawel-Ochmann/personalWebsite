@@ -6,7 +6,9 @@ const messages = {
     myWork: 'My Work',
     myTechStack: 'My Tech Stack',
     contact: 'Contact',
-    heroHeader: 'Let me make you visible in the web',
+    heroHeaderPart1: 'Let me make you',
+    heroHeaderPart2: ' in the web',
+    heroHeaderSpan: ' visible',
     heroDescription:
       'Hi, im Paul, the web developer and web designer, i will create a site, e-commerce shop, or custom application for You.',
     heroButton: `Let's work together!`,
@@ -17,14 +19,17 @@ const messages = {
     formEmail: 'Email',
     formMessage: 'Message',
     formTitle: 'Get in touch',
-    formInfo:'Have any questions? Can i help You somehow? Feel free to ask!',
-    formButton: 'Send'
+    formInfo: 'Have any questions? Can i help You somehow? Feel free to ask!',
+    formButton: 'Send',
+    footerRights: 'All rights reserved',
   },
   pl: {
     myWork: 'Moje Projekty',
     myTechStack: 'Mój Stos Technologiczny',
     contact: 'Kontakt',
-    heroHeader: 'Zacznij być widoczny w sieci',
+    heroHeaderPart1: 'Zacznij być',
+    heroHeaderPart2: ' w sieci',
+    heroHeaderSpan: ' widoczny',
     heroDescription:
       'Cześć, jestem Paweł, programista i projektant stron internetowych, mogę stworzyć dla Ciebie stronę, sklep internetowy, albo aplikację internetową.',
     heroButton: 'Zapraszam!',
@@ -35,8 +40,9 @@ const messages = {
     formEmail: 'Email',
     formMessage: 'Wiadomość',
     formTitle: 'Skontaktuj się',
-    formInfo:'Masz jakieś pytania? Mogę Ci jakoś pomóc? Pytaj śmiało!',  
-    formButton: 'Wyslij'
+    formInfo: 'Masz jakieś pytania? Mogę Ci jakoś pomóc? Pytaj śmiało!',
+    formButton: 'Wyslij',
+    footerRights: 'Wszelkie prawa zastrzeżone',
   },
 }
 

@@ -15,7 +15,7 @@
       </a>
     </div>
   </div>
-  <div><p>© 2024 Paweł Ochmann. All rights reserved</p></div>
+  <div><p>© 2024 Paweł Ochmann. {{ $t('footerRights') }}</p></div>
 </template>
 
 <style scoped></style>

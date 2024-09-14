@@ -1,3 +1,5 @@
+@import "variables.scss";
+
 @font-face {
   font-family: 'Roboto';
   src:
@@ -10,13 +12,22 @@
   font-style: normal;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  width: 100dvw;
-  height: 100dvh;
-  background-color: rgb(38, 38, 38);
-  color: white;
+ body{
+  background-color: $color-background-primary;
+  color: $color-text-primary;
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
 }
