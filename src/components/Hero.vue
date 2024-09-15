@@ -19,8 +19,12 @@
 .container {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
-  gap: 2rem
+  margin: 1rem;
+  padding: 5dvh 5dvw;
+  gap: 2rem;
+  border-left: 4px solid $color-theme-primary;
+  border-bottom:4px solid $color-theme-primary;
+  border-radius: 3rem 0 0 3rem;
 }
 
 .infoSection { 
@@ -36,7 +40,7 @@
     position: relative;
     color: white;
     text-shadow: none;
-    animation: turningHighlightEffect 1.5s ease-out forwards;
+    animation: turningHighlightEffect 2.5s ease-out forwards;
   }
 }
 
@@ -67,6 +71,7 @@
   border-radius: 1000px;
   position: absolute;
   top: 0;
+  left: 10dvw;
   z-index: -10;
 }
 
@@ -76,19 +81,19 @@
       opacity: 0.3;
       color: rgba($color-text-primary, 0.2);
     }
-    20% {
+    30% {
       text-shadow: 0 0 5px $color-text-primary, 0 0 10px $color-text-primary, 0 0 15px $color-theme-primary;
       opacity: 7;
     }
-    40% {
+    50% {
       text-shadow: none;
       opacity: 0.5;
     }
-    60% {
+    70% {
       text-shadow: 0 0 10px $color-text-primary, 0 0 20px $color-text-primary, 0 0 30px $color-text-primary;
       opacity: 8;
     }
-    80% {
+    90% {
       text-shadow: 0 0 5px $color-text-primary, 0 0 10px $color-text-primary;
       opacity: 0.8;
     }

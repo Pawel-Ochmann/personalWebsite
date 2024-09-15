@@ -1,61 +1,112 @@
 <script setup lang="ts">
 import '@material-design-icons/font'
+
+import { ref } from 'vue'
+
+const activeCategory = ref('development')
+
+const switchCategory = (category: 'design' | 'development') => {
+  activeCategory.value = category
+}
 </script>
 
 <template>
+  <h2 class="title">{{ $t('technologiesTitle') }}</h2>
   <div class="container">
-    <div class="tech">Typescript</div>
-    <div class="tech">Figma</div>
-    <div class="tech">React</div>
-    <div class="tech">Vue</div>
-    <div class="tech">Material Design</div>
-    <div class="tech">Github</div>
-    <div class="tech">NodeJS</div>
-    <div class="tech">ExpressJS</div>
-    <div class="tech">MongoDB</div>
-    <div class="tech">Postgress</div>
-    <div class="tech">Canva</div>
-    <div class="tech">Wordpress</div>
-    <div class="tech">Vite</div>
-    <div class="tech">Jest</div>
-    <div class="tech">VS Code</div>
-  </div>
-  <div>
-    <h2>{{ $t('technologiesTitle') }}</h2>
-    <div class="technologiesSwitcherContainer">
-      <div>
-        <p>web design</p>
-        <span class="material-icons">palette</span>
+    <div>
+      <div class="techSwitcherContainer">
+        <div
+          class="techSwitcher"
+          :class="{ active: activeCategory === 'design' }"
+          @click="switchCategory('design')"
+        >
+          <p>design</p>
+          <span class="material-icons">palette</span>
+        </div>
+        <div class="separator"></div>
+        <div
+          class="techSwitcher"
+          :class="{ active: activeCategory === 'development' }"
+          @click="switchCategory('development')"
+        >
+          <p>development</p>
+          <span class="material-icons">terminal</span>
+        </div>
       </div>
-      <div class="separator"></div>
-      <p>web development</p>
-      <span class="material-icons">terminal</span>
+    </div>
+    <div class="techContainer">
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">Typescript</div>
+      <div class="tech design" :class="{ active: activeCategory === 'design' }">Figma</div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">React</div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">Vue</div>
+      <div class="tech design" :class="{ active: activeCategory === 'design' }">Material Design</div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">Github</div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">NodeJS</div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">ExpressJS</div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">MongoDB</div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">Postgress</div>
+      <div class="tech design" :class="{ active: activeCategory === 'design' }">Canva</div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">Wordpress</div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">Vite</div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">Jest</div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">VS Code</div>
     </div>
   </div>
 </template>
 
-<style scoped>
-span {
-  color: pink;
-}
-.separator {
-  background: red;
-  height: 200px;
-  width: 5px;
-}
-.technologiesSwitcherContainer {
-  display: flex;
-}
-.tech {
-  background-color: grey;
-  border-radius: 1rem;
-  width: max-content;
-  padding: .5rem 1rem;
-}
+<style lang="scss" scoped>
 .container {
+  position: relative;
+  margin: 1rem;
   display: flex;
-  border-left: 3px solid red;
-  border-bottom: 3px solid red;
-  border-radius: 1rem 0 0 1rem;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 1rem;
+  padding: 3dvh 5dvw;
+  border-left: 4px solid $color-theme-primary;
+  border-bottom: 4px solid $color-theme-primary;
+  border-radius: 3rem 0 0 3rem;
+}
+
+.title {
+  margin: 8rem 2rem 2rem 2rem;
+  text-align: center;
+  line-height: 1.2;
+  display: flex;
+  justify-content: center;
+  @include fontHeadlineMedium;
+  text-shadow: $glow-text-primary;
+}
+
+.techSwitcherContainer {
+  display: grid;
+  grid-template-columns: 1fr 1px 2fr;
+  justify-items: center;
+}
+
+.separator {
+  width: 1px;
+  height: 100%;
+  background-color: $color-theme-primary;
+}
+
+.techSwitcher {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+
+  @include fontTitleSmall;
+
+  &.active {
+    text-shadow: $glow-text-primary;
+  }
+}
+
+.tech {
+ &.active {
+   text-shadow: $glow-text-primary;
+ }
 }
 </style>

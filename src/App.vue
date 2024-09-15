@@ -39,7 +39,4 @@ const changeLanguage = (lang: string) => {
 
 
 <style scoped>
-#app > div {
-min-height: 100vh;
-}
 </style>
