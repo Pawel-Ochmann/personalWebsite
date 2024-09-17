@@ -80,9 +80,35 @@ $glow-theme-primary:
   color: $color-text-secondary;
 }
 
+@mixin fontBodyMedium() {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+  line-height: 1.1;
+  font-weight: 300;
+  color: $color-text-secondary;
+  text-transform: uppercase;
+}
+
+
 @mixin fontBodySmall() {
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
+  line-height: 1.1;
+  font-weight: 500;
+  color: $color-text-secondary;
+}
+
+@mixin fontLabelMedium() {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  line-height: 1.1;
+  font-weight: 500;
+  color: $color-text-primary;
+}
+
+@mixin fontLabelSmall() {
+  font-family: 'Roboto', sans-serif;
+  font-size: .8rem;
   line-height: 1.1;
   font-weight: 500;
   color: $color-text-secondary;

@@ -20,7 +20,7 @@ const switchCategory = (category: 'design' | 'development') => {
           :class="{ active: activeCategory === 'design' }"
           @click="switchCategory('design')"
         >
-          <p>design</p>
+          <p>{{ $t('design') }}</p>
           <span class="material-icons">palette</span>
         </div>
         <div class="separator"></div>
@@ -29,27 +29,57 @@ const switchCategory = (category: 'design' | 'development') => {
           :class="{ active: activeCategory === 'development' }"
           @click="switchCategory('development')"
         >
-          <p>development</p>
+          <p>{{ $t('development') }}</p>
           <span class="material-icons">terminal</span>
         </div>
       </div>
     </div>
     <div class="techContainer">
-      <div class="tech" :class="{ active: activeCategory !== 'design' }">Typescript</div>
-      <div class="tech design" :class="{ active: activeCategory === 'design' }">Figma</div>
-      <div class="tech" :class="{ active: activeCategory !== 'design' }">React</div>
-      <div class="tech" :class="{ active: activeCategory !== 'design' }">Vue</div>
-      <div class="tech design" :class="{ active: activeCategory === 'design' }">Material Design</div>
-      <div class="tech" :class="{ active: activeCategory !== 'design' }">Github</div>
-      <div class="tech" :class="{ active: activeCategory !== 'design' }">NodeJS</div>
-      <div class="tech" :class="{ active: activeCategory !== 'design' }">ExpressJS</div>
-      <div class="tech" :class="{ active: activeCategory !== 'design' }">MongoDB</div>
-      <div class="tech" :class="{ active: activeCategory !== 'design' }">Postgress</div>
-      <div class="tech design" :class="{ active: activeCategory === 'design' }">Canva</div>
-      <div class="tech" :class="{ active: activeCategory !== 'design' }">Wordpress</div>
-      <div class="tech" :class="{ active: activeCategory !== 'design' }">Vite</div>
-      <div class="tech" :class="{ active: activeCategory !== 'design' }">Jest</div>
-      <div class="tech" :class="{ active: activeCategory !== 'design' }">VS Code</div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">
+        Typescript
+      </div>
+      <div class="tech design" :class="{ active: activeCategory === 'design' }">
+        Figma
+      </div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">
+        React
+      </div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">
+        Vue
+      </div>
+      <div class="tech design" :class="{ active: activeCategory === 'design' }">
+        Material Design
+      </div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">
+        Github
+      </div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">
+        NodeJS
+      </div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">
+        ExpressJS
+      </div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">
+        MongoDB
+      </div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">
+        Postgress
+      </div>
+      <div class="tech design" :class="{ active: activeCategory === 'design' }">
+        Canva
+      </div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">
+        Wordpress
+      </div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">
+        Vite
+      </div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">
+        Jest
+      </div>
+      <div class="tech" :class="{ active: activeCategory !== 'design' }">
+        VS Code
+      </div>
     </div>
   </div>
 </template>
@@ -80,20 +110,25 @@ const switchCategory = (category: 'design' | 'development') => {
 
 .techSwitcherContainer {
   display: grid;
-  grid-template-columns: 1fr 1px 2fr;
-  justify-items: center;
+  gap:1rem;
+  width:max-content;
+  margin: 0 auto;
+  // grid-template-columns: 1fr 1px 2fr;
+  // justify-items: center;
 }
 
 .separator {
-  width: 1px;
-  height: 100%;
+  // width: 1px;
+  // height: 100%;
+  height: 1px;
+  width: 100%;
   background-color: $color-theme-primary;
 }
 
 .techSwitcher {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   text-transform: uppercase;
 
@@ -104,9 +139,26 @@ const switchCategory = (category: 'design' | 'development') => {
   }
 }
 
+.techContainer {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
 .tech {
- &.active {
-   text-shadow: $glow-text-primary;
- }
+  background-color: $color-background-secondary;
+  width: auto;
+  padding: 0.5rem 1rem;
+  border-radius: 10rem;
+  opacity: 0.5;
+}
+
+.tech {
+  &.active {
+    text-shadow: $glow-text-primary;
+    font-weight: 700;
+    opacity: 1;
+  }
 }
 </style>
