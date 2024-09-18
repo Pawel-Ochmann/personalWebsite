@@ -16,6 +16,15 @@ $glow-theme-primary:
   0 0 20px rgba($color-theme-primary, 0.6),
   0 0 30px rgba($color-theme-primary, 0.4);
 
+$glow-text-secondary:
+   0 0 20px rgba($color-text-primary, 1),  
+  0 0 40px rgba($color-text-primary, 0.9),   
+  0 0 60px rgba($color-text-primary, 0.8),  
+  0 0 80px rgba($color-text-primary, 0.7),  
+  0 0 100px rgba($color-text-primary, 0.6); 
+
+
+
 @mixin fontDisplayLarge() {
   font-family: 'Raleway', sans-serif;
   font-size: 5.61rem;

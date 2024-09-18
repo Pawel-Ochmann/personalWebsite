@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 
 const { onLanguageChange } = defineProps<{
   onLanguageChange: (lang: string) => void
@@ -12,6 +12,12 @@ const isMenuOpen = ref(false)
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
+
+const navStyles = computed(() => ({
+  '--myWork-content': `'${t('myWork')}'`,
+  '--myTechStack-content': `'${t('myTechStack')}'`,
+  '--contact-content': `'${t('contact')}'`,
+}))
 </script>
 
 <template>
@@ -29,12 +35,18 @@ const toggleMenu = () => {
       <span class="material-icons">{{ isMenuOpen ? 'close' : 'menu' }}</span>
     </button>
     <div class="dynamicHeaderContainer" :class="{ open: isMenuOpen }">
-      <nav class="nav">
-        <a href="#projects-section">{{ $t('myWork') }}</a>
+      <nav class="nav" :style="navStyles">
+        <a class="navLink myWork" href="#projects-section">{{
+          $t('myWork')
+        }}</a>
 
-        <a href="#technologies-section">{{ $t('myTechStack') }}</a>
+        <a class="navLink technologies" href="#technologies-section">{{
+          $t('myTechStack')
+        }}</a>
 
-        <a href="#contact-section">{{ $t('contact') }}</a>
+        <a class="navLink contact" href="#contact-section">{{
+          $t('contact')
+        }}</a>
       </nav>
       <div class="socials">
         <a
@@ -48,9 +60,19 @@ const toggleMenu = () => {
         </a>
       </div>
       <div class="langSwitcher">
-        <button @click="onLanguageChange('en')"  :class="{ 'active': locale === ('en') }">EN</button>
+        <button
+          @click="onLanguageChange('en')"
+          :class="{ active: locale === 'en' }"
+        >
+          EN
+        </button>
         <div class="separator"></div>
-        <button @click="onLanguageChange('pl')"  :class="{ 'active': locale === ('pl') }">PL</button>
+        <button
+          @click="onLanguageChange('pl')"
+          :class="{ active: locale === 'pl' }"
+        >
+          PL
+        </button>
       </div>
     </div>
   </header>
@@ -73,7 +95,7 @@ const toggleMenu = () => {
   width: 100px;
   height: 100px;
   img {
-    max-width: 100%;
+    width: 100%;
   }
 }
 
@@ -96,7 +118,7 @@ const toggleMenu = () => {
   bottom: 0;
   width: 60dvw;
   height: 100dvh;
-  background-color:$color-theme-container;
+  background-color: $color-theme-container;
   transform: translateX(100vw);
   padding: 2rem;
   display: flex;
@@ -106,15 +128,6 @@ const toggleMenu = () => {
   gap: 10dvh;
   &.open {
     transform: translateX(0);
-  }
-
-  nav {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    a {
-      @include fontTitleMedium;
-    }
   }
 
   .socials {
@@ -142,6 +155,90 @@ const toggleMenu = () => {
       height: 100%;
       background-color: $color-text-primary;
     }
+  }
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  a {
+    @include fontTitleMedium;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .logo {
+    display: flex;
+  }
+
+  .dynamicHeaderContainer {
+    position: static;
+    transform: none;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    padding: 0;
+    gap: 1rem;
+    background-color: $color-background-primary;
+    &.open {
+      transform: none;
+    }
+  }
+
+  .nav {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .navLink {
+    position: relative;
+    text-decoration: none;
+    border-bottom: 1px solid $color-text-primary;
+    display: flex;
+    align-items: end;
+  }
+
+  .navLink,
+  .navLink::before {
+    font-weight: 300;
+  }
+
+  .navLink::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0%;
+    width: 100%;
+    color: $color-text-primary;
+    transition: all 0.3s ease-in-out;
+    transform-origin: bottom;
+    border-bottom: 1px solid $color-text-primary;
+    z-index: 100;
+    line-height: 1;
+    min-width: max-content;
+  }
+  .navLink:hover::before {
+    height: 100%;
+    text-shadow: $glow-text-secondary;
+    font-weight: 700;
+  }
+
+  .myWork::before {
+    content: var(--myWork-content);
+  }
+
+  .technologies::before {
+    content: var(--myTechStack-content);
+  }
+
+  .contact::before {
+    content: var(--contact-content);
   }
 }
 </style>
