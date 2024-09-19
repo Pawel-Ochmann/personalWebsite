@@ -62,6 +62,7 @@ const navStyles = computed(() => ({
       <div class="langSwitcher">
         <button
           @click="onLanguageChange('en')"
+          class="langButton"
           :class="{ active: locale === 'en' }"
         >
           EN
@@ -69,6 +70,7 @@ const navStyles = computed(() => ({
         <div class="separator"></div>
         <button
           @click="onLanguageChange('pl')"
+          class="langButton"
           :class="{ active: locale === 'pl' }"
         >
           PL
@@ -129,33 +131,6 @@ const navStyles = computed(() => ({
   &.open {
     transform: translateX(0);
   }
-
-  .socials {
-    display: flex;
-    gap: 2rem;
-    svg {
-      font-size: 3rem;
-      color: $color-text-primary;
-    }
-  }
-
-  .langSwitcher {
-    display: flex;
-    gap: 1rem;
-    button {
-      @include fontTitleMedium;
-      background: none;
-      border: none;
-      &.active {
-        text-shadow: $glow-text-primary;
-      }
-    }
-    .separator {
-      width: 2px;
-      height: 100%;
-      background-color: $color-text-primary;
-    }
-  }
 }
 
 .nav {
@@ -164,6 +139,32 @@ const navStyles = computed(() => ({
   gap: 2rem;
   a {
     @include fontTitleMedium;
+  }
+}
+
+.socials {
+  display: flex;
+  gap: 2rem;
+  svg {
+    font-size: 3rem;
+    color: $color-text-primary;
+  }
+}
+.langSwitcher {
+  display: flex;
+  gap: 1rem;
+  .langButton {
+    @include fontTitleMedium;
+    background: none;
+    border: none;
+    &.active {
+      text-shadow: $glow-text-primary;
+    }
+  }
+  .separator {
+    width: 2px;
+    height: 100%;
+    background-color: $color-text-primary;
   }
 }
 
@@ -207,11 +208,12 @@ const navStyles = computed(() => ({
   .navLink,
   .navLink::before {
     font-weight: 300;
+    padding-bottom: 2px;
   }
 
   .navLink::before {
     position: absolute;
-    top: 0;
+    top: -6px;
     left: 0;
     height: 0%;
     width: 100%;
@@ -220,11 +222,11 @@ const navStyles = computed(() => ({
     transform-origin: bottom;
     border-bottom: 1px solid $color-text-primary;
     z-index: 100;
-    line-height: 1;
+    line-height: 1.6;
     min-width: max-content;
   }
   .navLink:hover::before {
-    height: 100%;
+    height: 111%;
     text-shadow: $glow-text-secondary;
     font-weight: 700;
   }
@@ -239,6 +241,31 @@ const navStyles = computed(() => ({
 
   .contact::before {
     content: var(--contact-content);
+  }
+
+  .socials {
+    gap: 1rem;
+    svg {
+      font-size: 2rem;
+      transition: 0.3s ease;
+    }
+    svg:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .langSwitcher {
+    gap: 0;
+    margin-left:2rem;
+    position: relative;
+    font-size: 1rem;
+
+    .separator {
+      position:relative;
+      width:2px;
+      background: $color-text-primary;
+      height: 1.5em;
+    }
   }
 }
 </style>

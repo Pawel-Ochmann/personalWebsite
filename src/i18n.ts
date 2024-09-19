@@ -28,7 +28,7 @@ const messages = {
   },
   pl: {
     myWork: 'Moje Projekty',
-    myTechStack: 'Mój Stos Technologiczny',
+    myTechStack: 'Technologie',
     contact: 'Kontakt',
     heroHeaderPart1: 'Zacznij być',
     heroHeaderPart2: ' w sieci',
