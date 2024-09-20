@@ -1,38 +1,52 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUpdated } from 'vue'
 
+// Ref to anchor element
 const elementRef = ref<HTMLAnchorElement | null>(null)
 
-onMounted(() => {
+// Function to create spans and add event listeners
+const setupSpans = () => {
   if (elementRef.value) {
     let text = elementRef.value.textContent || ''
     elementRef.value.innerHTML = '' // Clear the content before adding spans
 
+    // Create span for each character
     for (let char of text) {
       let span = document.createElement('span')
       span.textContent = char === ' ' ? '\u00A0' : char
-      span.classList.add('span') // Add the 'span' class
+      span.classList.add('span')
       elementRef.value.appendChild(span)
     }
 
+    // Get all spans
     const spans = elementRef.value.querySelectorAll('.span')
 
+    // Add hover animation on mouseenter
     elementRef.value.addEventListener('mouseenter', () => {
       spans.forEach((span, index) => {
         setTimeout(() => {
           span.classList.add('hover')
-        }, index * 50)
+        }, index * 20)
       })
     })
 
+    // Remove hover animation on mouseleave
     elementRef.value.addEventListener('mouseleave', () => {
       spans.forEach((span, index) => {
         setTimeout(() => {
           span.classList.remove('hover')
-        }, index * 50)
+        }, index * 20)
       })
     })
   }
+}
+
+onMounted(() => {
+  setupSpans()
+})
+
+onUpdated(()=>{
+  setupSpans()
 })
 </script>
 
@@ -174,13 +188,37 @@ onMounted(() => {
     box-shadow: none;
     display: inline-block;
   }
-   
-    .callToAction:hover * {
-      color: $color-theme-primary;
+}
+</style>
+
+<style lang="scss">
+@media only screen and (min-width: 1024px) {
+  .callToAction {
+    overflow: hidden;
+    transition: .5s ease;
   }
 
- ::v-deep span {
-  border: 1px solid red !important;
-}
+  .callToAction:hover {
+    background-color: $color-theme-primary;
+    box-shadow: $glow-theme-primary;
+   }
+
+  .callToAction .span {
+    font-weight: 700;
+    position:relative;
+    color: $color-theme-primary;
+    display: inline-block;
+    text-shadow: 0 50px $color-text-primary;
+    transition: all .3s ease;
+    transform: translateY(0);
+  }
+
+  .callToAction:hover .span.hover {
+    transform: translateY(-50px);
+  }
+
+    .callToAction .span.hover {
+    transform: translateY(-50px);
+  }
 }
 </style>
