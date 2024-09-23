@@ -110,16 +110,12 @@ const switchCategory = (category: 'design' | 'development') => {
 
 .techSwitcherContainer {
   display: grid;
-  gap:1rem;
-  width:max-content;
+  gap: 1rem;
+  width: max-content;
   margin: 0 auto;
-  // grid-template-columns: 1fr 1px 2fr;
-  // justify-items: center;
 }
 
 .separator {
-  // width: 1px;
-  // height: 100%;
   height: 1px;
   width: 100%;
   background-color: $color-theme-primary;
@@ -159,6 +155,24 @@ const switchCategory = (category: 'design' | 'development') => {
     text-shadow: $glow-text-primary;
     font-weight: 700;
     opacity: 1;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    min-height: calc(150px + 8dvw);
+  }
+
+  .techSwitcher {
+    font-size: calc(1.333rem + 0.5dvw);
+    cursor: pointer;
+  }
+
+  .tech {
+    font-size: calc(1rem + 0.5dvw);
   }
 }
 </style>

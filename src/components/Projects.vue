@@ -18,7 +18,6 @@ const imageSrc = computed(() => {
   const imageName = `${currentSlide.value}.png`
   return new URL(`../assets/${imageName}`, import.meta.url).href
 })
-
 </script>
 
 <template>
@@ -31,32 +30,32 @@ const imageSrc = computed(() => {
       <transition name="fade" mode="out-in">
         <div class="photo" :key="currentSlide">
           <img :src="imageSrc" alt="picture" />
-          
         </div>
       </transition>
-
-      <transition name="slide" mode="out-in">
-        <div class="info" :key="currentSlide">
-          <h3 class="infoTitle">{{ $t(`slider.${currentSlide}.title`) }}</h3>
-          <p class="infoDescription">
-            {{ $t(`slider.${currentSlide}.description`) }}
-          </p>
-          <div class="links">
-            <a
-              class="live"
-              :href="$t(`slider.${currentSlide}.liveLink`)"
-              target="_blank"
-              >{{ $t('sliderLive') }}</a
-            >
-            <a
-              class="github"
-              :href="$t(`slider.${currentSlide}.githubLink`)"
-              target="_blank"
-              ><font-awesome-icon :icon="['fab', 'github']"
-            /></a>
+      <div class="wrapper">
+        <transition name="slide" mode="out-in">
+          <div class="info" :key="currentSlide">
+            <h3 class="infoTitle">{{ $t(`slider.${currentSlide}.title`) }}</h3>
+            <p class="infoDescription">
+              {{ $t(`slider.${currentSlide}.description`) }}
+            </p>
+            <div class="links">
+              <a
+                class="live"
+                :href="$t(`slider.${currentSlide}.liveLink`)"
+                target="_blank"
+                >{{ $t('sliderLive') }}</a
+              >
+              <a
+                class="github"
+                :href="$t(`slider.${currentSlide}.githubLink`)"
+                target="_blank"
+                ><font-awesome-icon :icon="['fab', 'github']"
+              /></a>
+            </div>
           </div>
-        </div>
-      </transition>
+        </transition>
+      </div>
     </div>
     <div class="controller">
       <button class="controllerButton" @click="previousSlide">
@@ -64,13 +63,13 @@ const imageSrc = computed(() => {
       </button>
 
       <div class="dots">
-      <span
-        v-for="(slide, index) in enSlides"
-        :key="slide.title"
-        class="dot"
-        :class="{ active: currentSlide === index }"
-      ></span>
-    </div>
+        <span
+          v-for="(slide, index) in enSlides"
+          :key="slide.title"
+          class="dot"
+          :class="{ active: currentSlide === index }"
+        ></span>
+      </div>
 
       <button class="controllerButton" @click="nextSlide">
         <span class="material-icons">arrow_forward_ios</span>
@@ -159,36 +158,45 @@ const imageSrc = computed(() => {
 .links {
   display: flex;
   gap: 1rem;
-  .live {
-    @include fontTitleSmall;
-    text-decoration: none;
-    color: $color-theme-primary;
-    border: 2px solid $color-theme-primary;
-    padding: 0.5rem 1rem;
-    border-radius: 10rem;
-  }
-  .github {
-    font-size: 3rem;
-    color: $color-theme-primary;
-    display: flex;
-    align-items: end;
-  }
 }
 
-.slider, .info {
-  transition: opacity 0.5s ease, transform 0.5s ease;
+.live {
+  @include fontTitleSmall;
+  text-decoration: none;
+  color: $color-theme-primary;
+  border: 2px solid $color-theme-primary;
+  padding: 0.5rem 1rem;
+  border-radius: 10rem;
+}
+.github {
+  font-size: 3rem;
+  color: $color-theme-primary;
+  display: flex;
+  align-items: end;
 }
 
-.fade-enter-active, .fade-leave-active {
+.slider,
+.info {
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.5s ease;
 }
-.fade-enter-from, .fade-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 
 /* Slide transition for the info */
-.slide-enter-active, .slide-leave-active {
-  transition: transform 0.5s ease, opacity 0.5s ease;
+.slide-enter-active,
+.slide-leave-active {
+  transition:
+    transform 0.5s ease,
+    opacity 0.5s ease;
 }
 .slide-enter-from {
   transform: translateX(10%);
@@ -229,6 +237,69 @@ const imageSrc = computed(() => {
   &.active {
     box-shadow: $glow-theme-primary;
     background-color: $color-theme-primary;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .container {
+    min-height: auto;
+    border: none;
+    gap: 2rem;
+  }
+
+  .slider {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .photo {
+    height: min-content;
+    img {
+      height: 33dvw;
+      min-height: 100%;
+      border-radius: 1rem 0 0 1rem;
+    }
+    &::after {
+      height: 100%;
+    }
+  }
+
+  .wrapper {
+    border-right: 4px solid $color-theme-primary;
+    border-bottom: 4px solid $color-theme-primary;
+    border-radius: 0 3rem 3rem 0;
+  }
+
+  .info {
+    padding: 1rem 2rem;
+    justify-content: center;
+    gap: 2rem;
+    height: calc(100% - 3px);
+  }
+
+  .infoTitle {
+    font-size: 1.777rem;
+  }
+  .live {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    transition: 0.3s ease;
+    &:hover {
+      box-shadow: $glow-theme-primary;
+    }
+  }
+
+  .github {
+    transition: 0.3s ease;
+    border-radius: 10rem;
+    &:hover {
+      box-shadow: $glow-theme-primary;
+    }
+  }
+  .controllerButton {
+    cursor: pointer;
   }
 }
 </style>
