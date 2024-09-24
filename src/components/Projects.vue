@@ -268,13 +268,14 @@ const imageSrc = computed(() => {
     border-right: 4px solid $color-theme-primary;
     border-bottom: 4px solid $color-theme-primary;
     border-radius: 0 3rem 3rem 0;
+    height: calc(100% - 3px);
   }
 
   .info {
     padding: 1rem 2rem;
     justify-content: center;
     gap: 2rem;
-    height: calc(100% - 3px);
+    height: 100%;
   }
 
   .infoTitle {
