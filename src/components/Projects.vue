@@ -16,6 +16,9 @@ interface Project {
   updatedAt: string // or Date
   publishedAt: string // or Date
   locale: string
+  image: {
+    formats: Formats
+  }
 }
 
 interface ProjectsResponse {
@@ -44,7 +47,8 @@ const nextSlide = () => {
 const { locale } = useI18n()
 
 const url = computed(
-  () => `https://backendpersonalwebsite.fly.dev/api/projects?locale=${locale.value}&populate=*`
+  () =>
+    `https://backendpersonalwebsite.fly.dev/api/projects?locale=${locale.value}&populate=*`
 )
 
 const { data, error, isFetching, execute } = useFetch<ProjectsResponse>(url)
@@ -58,13 +62,7 @@ watch(
   }
 )
 
-const test = () => {
-  data.value && console.log(data.value.data[0].title)
-}
-
-const getImageUrl = (project) => {
-
-
+const getImageUrl = (project: Project) => {
   return `https://backendpersonalwebsite.fly.dev/${project.image.formats.medium.url}`
 }
 
@@ -76,18 +74,24 @@ interface ImageFormat {
 interface Formats {
   thumbnail?: ImageFormat
   small?: ImageFormat
-  medium?: ImageFormat
+  medium: ImageFormat
   large?: ImageFormat
 }
 const generateSrcSet = (formats: Formats): string => {
   const sizes: string[] = []
 
   if (formats.small)
-    sizes.push(`https://backendpersonalwebsite.fly.dev${formats.small.url} 400w`)
+    sizes.push(
+      `https://backendpersonalwebsite.fly.dev${formats.small.url} 400w`
+    )
   if (formats.medium)
-    sizes.push(`https://backendpersonalwebsite.fly.dev${formats.medium.url} 750w`)
+    sizes.push(
+      `https://backendpersonalwebsite.fly.dev${formats.medium.url} 750w`
+    )
   if (formats.large)
-    sizes.push(`https://backendpersonalwebsite.fly.dev${formats.large.url} 1000w`)
+    sizes.push(
+      `https://backendpersonalwebsite.fly.dev${formats.large.url} 1000w`
+    )
 
   return sizes.join(', ')
 }
@@ -96,6 +100,7 @@ const generateSrcSet = (formats: Formats): string => {
 <template>
   <div>
     <div v-if="isFetching" class="loader"></div>
+    <div v-else-if="error"></div>
     <div v-else-if="data">
       <div class="title">
         <h2>{{ $t('sliderTitle') }}</h2>

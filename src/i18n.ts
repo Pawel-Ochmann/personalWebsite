@@ -1,5 +1,4 @@
 import { createI18n } from 'vue-i18n'
-import { enSlides, plSlides } from './projects'
 
 const messages = {
   en: {
@@ -13,7 +12,6 @@ const messages = {
       'Hi, im Paul, the web developer and web designer, i will create a site, e-commerce shop, or custom application for You.',
     heroButton: `Let's work together!`,
     sliderTitle: 'Check my previous projects',
-    slider: enSlides,
     sliderLive: 'See live',
     technologiesTitle: 'Technologies i use',
     design:'Design',
@@ -37,7 +35,6 @@ const messages = {
       'Cześć, jestem Paweł, programista i projektant stron internetowych, mogę stworzyć dla Ciebie stronę, sklep internetowy, albo aplikację internetową.',
     heroButton: 'Zapraszam!',
     sliderTitle: 'Zobacz moje wcześniejsze projekty',
-    slider: plSlides,
     sliderLive: 'Zobacz na żywo',
     technologiesTitle: 'Technologie, których używam',
     design:'Projektowanie',
