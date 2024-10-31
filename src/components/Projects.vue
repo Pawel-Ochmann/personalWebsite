@@ -1,7 +1,34 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import '@material-design-icons/font'
-import { enSlides } from '../projects'
+import { useI18n } from 'vue-i18n'
+import { useFetch } from '@vueuse/core'
+import { watch } from 'vue'
+
+interface Project {
+  id: number
+  documentId: string
+  title: string
+  description: string
+  liveLink: string
+  githubLink: string
+  createdAt: string // or Date, depending on how you handle dates
+  updatedAt: string // or Date
+  publishedAt: string // or Date
+  locale: string
+}
+
+interface ProjectsResponse {
+  data: Project[]
+  meta: {
+    pagination: {
+      page: number
+      pageSize: number
+      pageCount: number
+      total: number
+    }
+  }
+}
 
 const currentSlide = ref(0)
 // Method to switch to the previous slide
@@ -14,71 +41,145 @@ const nextSlide = () => {
   currentSlide.value = currentSlide.value === 2 ? 0 : currentSlide.value + 1
 }
 
-const imageSrc = computed(() => {
-  const imageName = `${currentSlide.value}.png`
-  return new URL(`../assets/${imageName}`, import.meta.url).href
-})
+const { locale } = useI18n()
+
+const url = computed(
+  () => `https://backendpersonalwebsite.fly.dev/api/projects?locale=${locale.value}&populate=*`
+)
+
+const { data, error, isFetching, execute } = useFetch<ProjectsResponse>(url)
+  .get()
+  .json()
+
+watch(
+  () => locale.value,
+  () => {
+    execute()
+  }
+)
+
+const test = () => {
+  data.value && console.log(data.value.data[0].title)
+}
+
+const getImageUrl = (project) => {
+
+
+  return `https://backendpersonalwebsite.fly.dev/${project.image.formats.medium.url}`
+}
+
+interface ImageFormat {
+  url: string
+  width: number
+  height: number
+}
+interface Formats {
+  thumbnail?: ImageFormat
+  small?: ImageFormat
+  medium?: ImageFormat
+  large?: ImageFormat
+}
+const generateSrcSet = (formats: Formats): string => {
+  const sizes: string[] = []
+
+  if (formats.small)
+    sizes.push(`https://backendpersonalwebsite.fly.dev${formats.small.url} 400w`)
+  if (formats.medium)
+    sizes.push(`https://backendpersonalwebsite.fly.dev${formats.medium.url} 750w`)
+  if (formats.large)
+    sizes.push(`https://backendpersonalwebsite.fly.dev${formats.large.url} 1000w`)
+
+  return sizes.join(', ')
+}
 </script>
 
 <template>
-  <div class="title">
-    <h2>{{ $t('sliderTitle') }}</h2>
-  </div>
-  <div class="container">
-    <div class="slider">
-      <div class="gradient"></div>
-      <transition name="fade" mode="out-in">
-        <div class="photo" :key="currentSlide">
-          <img :src="imageSrc" alt="picture" />
-        </div>
-      </transition>
-      <div class="wrapper">
-        <transition name="slide" mode="out-in">
-          <div class="info" :key="currentSlide">
-            <h3 class="infoTitle">{{ $t(`slider.${currentSlide}.title`) }}</h3>
-            <p class="infoDescription">
-              {{ $t(`slider.${currentSlide}.description`) }}
-            </p>
-            <div class="links">
-              <a
-                class="live"
-                :href="$t(`slider.${currentSlide}.liveLink`)"
-                target="_blank"
-                >{{ $t('sliderLive') }}</a
-              >
-              <a
-                class="github"
-                :href="$t(`slider.${currentSlide}.githubLink`)"
-                target="_blank"
-                ><font-awesome-icon :icon="['fab', 'github']"
-              /></a>
+  <div>
+    <div v-if="isFetching" class="loader"></div>
+    <div v-else-if="data">
+      <div class="title">
+        <h2>{{ $t('sliderTitle') }}</h2>
+      </div>
+      <div class="container">
+        <div class="slider">
+          <div class="gradient"></div>
+          <transition name="fade" mode="out-in">
+            <div class="photo" :key="currentSlide">
+              <img
+                :src="getImageUrl(data.data[currentSlide])"
+                :srcset="generateSrcSet(data.data[currentSlide].image.formats)"
+                alt="picture"
+              />
             </div>
+          </transition>
+          <div class="wrapper">
+            <transition name="slide" mode="out-in">
+              <div class="info" :key="currentSlide">
+                <h3 class="infoTitle">{{ data.data[currentSlide].title }}</h3>
+                <p class="infoDescription">
+                  {{ data.data[currentSlide].description }}
+                </p>
+                <div class="links">
+                  <a
+                    class="live"
+                    :href="data.data[currentSlide].liveLink"
+                    target="_blank"
+                    >{{ $t('sliderLive') }}</a
+                  >
+                  <a
+                    class="github"
+                    :href="data.data[currentSlide].githubLink"
+                    target="_blank"
+                    ><font-awesome-icon :icon="['fab', 'github']"
+                  /></a>
+                </div>
+              </div>
+            </transition>
           </div>
-        </transition>
-      </div>
-    </div>
-    <div class="controller">
-      <button class="controllerButton" @click="previousSlide">
-        <span class="material-icons">arrow_back_ios</span>
-      </button>
+        </div>
+        <div class="controller">
+          <button class="controllerButton" @click="previousSlide">
+            <span class="material-icons">arrow_back_ios</span>
+          </button>
 
-      <div class="dots">
-        <span
-          v-for="(slide, index) in enSlides"
-          :key="slide.title"
-          class="dot"
-          :class="{ active: currentSlide === index }"
-        ></span>
-      </div>
+          <div class="dots">
+            <span
+              v-for="(slide, index) in data.data"
+              :key="slide.title"
+              class="dot"
+              :class="{ active: currentSlide === index }"
+            ></span>
+          </div>
 
-      <button class="controllerButton" @click="nextSlide">
-        <span class="material-icons">arrow_forward_ios</span>
-      </button>
+          <button class="controllerButton" @click="nextSlide">
+            <span class="material-icons">arrow_forward_ios</span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.loader {
+  width: 50px;
+  padding: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #25b09b;
+  --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+  mask: var(--_m);
+  -webkit-mask-composite: source-out;
+  mask-composite: subtract;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
 .container {
   position: relative;
   margin: 1rem;
