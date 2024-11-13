@@ -175,6 +175,7 @@ const generateSrcSet = (formats: Formats): string => {
   margin: 5rem 0;
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
