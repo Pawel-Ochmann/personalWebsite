@@ -116,6 +116,7 @@ onUpdated(()=>{
 .photoSection {
   position: relative;
   img {
+    width: 80%;
     transform: scaleX(-1);
   }
 }

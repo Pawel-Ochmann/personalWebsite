@@ -208,7 +208,7 @@ const navStyles = computed(() => ({
   .navLink,
   .navLink::before {
     font-weight: 300;
-    padding-bottom: 2px;
+    padding-bottom: 3px;
   }
 
   .navLink::before {

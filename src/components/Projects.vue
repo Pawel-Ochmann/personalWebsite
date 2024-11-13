@@ -99,7 +99,12 @@ const generateSrcSet = (formats: Formats): string => {
 
 <template>
   <div>
-    <div v-if="isFetching" class="loader"></div>
+    <div v-if="isFetching" class="loaderContainer">
+      <div class="title">
+        <h2>{{ $t('sliderTitle') }}</h2>
+      </div>
+      <div class="loader"></div>
+    </div>
     <div v-else-if="error"></div>
     <div v-else-if="data">
       <div class="title">
@@ -166,12 +171,19 @@ const generateSrcSet = (formats: Formats): string => {
 </template>
 
 <style lang="scss" scoped>
+.loaderContainer {
+  margin: 5rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .loader {
   width: 50px;
   padding: 8px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #25b09b;
+  background: $color-theme-primary;
   --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
   -webkit-mask: var(--_m);
   mask: var(--_m);
