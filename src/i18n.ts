@@ -9,7 +9,7 @@ const messages = {
     heroHeaderPart2: ' in the web',
     heroHeaderSpan: ' visible',
     heroDescription:
-      'Hi, I\`m Paul, the web developer and web designer, i will create a site, e-commerce shop, or custom application for You.',
+      'Hi, I\`m Pawel, the web developer and web designer, i will create a site, e-commerce shop, or custom application for You.',
     heroButton: `Let's work together!`,
     sliderTitle: 'Check my previous projects',
     sliderLive: 'See live',

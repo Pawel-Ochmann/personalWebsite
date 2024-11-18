@@ -44,9 +44,6 @@ const navStyles = computed(() => ({
           $t('myTechStack')
         }}</a>
 
-        <a class="navLink contact" href="#contact-section">{{
-          $t('contact')
-        }}</a>
       </nav>
       <div class="socials">
         <a

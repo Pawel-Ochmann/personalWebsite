@@ -59,7 +59,7 @@ onUpdated(()=>{
         >{{ $t('heroHeaderPart2') }}
       </h1>
       <h5 class="infoText">{{ $t('heroDescription') }}</h5>
-      <a ref="elementRef" class="callToAction" href="#contact-section">{{
+      <a ref="elementRef" class="callToAction" href="https://www.upwork.com/freelancers/~01f5c98dd0f52276ac?viewMode=1" target="_blank">{{
         $t('heroButton')
       }}</a>
     </div>
